@@ -4,6 +4,7 @@ import sys
 from django.conf import settings
 from django.core.management.commands import test
 from django.test.utils import get_runner
+from south.management.commands import patch_for_test_db_setup
 
 from django_selenium import settings as selenium_settings
 
@@ -19,6 +20,7 @@ class Command(test.Command):
     )
 
     def handle(self, *test_labels, **options):
+        patch_for_test_db_setup()
 
         verbosity = int(options.get('verbosity', 1))
         interactive = options.get('interactive', True)
